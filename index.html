@@ -9,35 +9,36 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   :root {
-    --bg: #050a05;
-    --bg2: #0a120a;
-    --bg3: #0f1a0f;
-    --card: #111a11;
-    --card2: #162016;
-    --border: #1e2e1e;
-    --border2: #243624;
+    --bg: #080808;
+    --bg2: #101010;
+    --bg3: #181818;
+    --card: #141414;
+    --card2: #1c1c1c;
+    --border: #2a2a2a;
+    --border2: #383838;
     --green: #7fff00;
     --green2: #5fd000;
     --green3: #3a8c00;
-    --green-dim: rgba(127,255,0,0.08);
-    --green-glow: rgba(127,255,0,0.15);
+    --green-dim: rgba(127,255,0,0.07);
+    --green-glow: rgba(127,255,0,0.14);
     --accent1: #00ffd5;
     --accent2: #ff6b35;
     --accent3: #ffd700;
     --accent4: #a855f7;
-    --text: #e8f5e8;
-    --text2: #8fa88f;
-    --text3: #5a705a;
+    --text: #f0f0f0;
+    --text2: #a0a0a0;
+    --text3: #555555;
     --red: #ff4444;
     --red-dim: rgba(255,68,68,0.1);
-    --shadow: 0 0 40px rgba(127,255,0,0.05);
-    --radius: 16px;
-    --radius2: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.5);
+    --shadow-green: 0 0 30px rgba(127,255,0,0.06);
+    --radius: 14px;
+    --radius2: 10px;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg);
+    background: #0a0a0a;
     color: var(--text);
     font-family: 'Space Grotesk', sans-serif;
     min-height: 100vh;
@@ -55,11 +56,12 @@ pointer-events:none; z-index:9999; opacity:0.4;
 /* SIDEBAR */
 .sidebar {
 position: fixed; left:0; top:0; bottom:0; width:240px;
-background: var(–bg2);
+background: #101010;
 border-right: 1px solid var(–border);
 display: flex; flex-direction: column;
-z-index: 100;
-transition: transform 0.3s ease;
+z-index: 300;
+transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+box-shadow: none;
 }
 .sidebar-logo {
 padding: 24px 20px 20px;
@@ -102,10 +104,9 @@ transition: all 0.2s; font-family: inherit;
 /* MAIN */
 .main { margin-left: 240px; min-height: 100vh; }
 .topbar {
-position: sticky; top:0; z-index:50;
+position: sticky; top:0; z-index:200;
 padding: 16px 28px;
-background: rgba(5,10,5,0.95);
-backdrop-filter: blur(20px);
+background: #101010;
 border-bottom: 1px solid var(–border);
 display: flex; align-items: center; gap: 12px;
 min-height: 60px;
@@ -128,10 +129,11 @@ border: 1px solid var(–border);
 border-radius: var(–radius);
 padding: 20px;
 transition: border-color 0.2s, box-shadow 0.2s;
+box-shadow: var(–shadow);
 }
-.card:hover { border-color: var(–border2); box-shadow: var(–shadow); }
+.card:hover { border-color: var(–border2); box-shadow: var(–shadow-green); }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.card-title { font-family: ‘Syne’, sans-serif; font-weight: 700; font-size: 14px; color: var(–text); letter-spacing: 0.3px; }
+.card-title { font-family: ‘Syne’, sans-serif; font-weight: 700; font-size: 15px; color: var(–text); letter-spacing: 0.3px; }
 .card-sub { font-size: 11px; color: var(–text3); margin-top: 2px; }
 
 /* GRID */
@@ -146,15 +148,16 @@ transition: border-color 0.2s, box-shadow 0.2s;
 background: var(–card);
 border: 1px solid var(–border);
 border-radius: var(–radius);
-padding: 20px;
+padding: 18px 16px;
+box-shadow: var(–shadow);
 }
-.stat-label { font-size: 11px; color: var(–text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
-.stat-value { font-family: ‘Syne’, sans-serif; font-size: 28px; font-weight: 800; line-height: 1; }
+.stat-label { font-size: 10px; color: var(–text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; font-weight: 600; }
+.stat-value { font-family: ‘Syne’, sans-serif; font-size: 26px; font-weight: 800; line-height: 1; }
 .stat-value.green { color: var(–green); }
 .stat-value.red { color: var(–red); }
 .stat-value.gold { color: var(–accent3); }
 .stat-value.cyan { color: var(–accent1); }
-.stat-change { font-size: 12px; color: var(–text3); margin-top: 6px; }
+.stat-change { font-size: 11px; color: var(–text3); margin-top: 6px; }
 .stat-change.pos { color: var(–green2); }
 .stat-change.neg { color: var(–red); }
 
@@ -405,8 +408,7 @@ cursor: default;
 .bottom-nav {
 display: none;
 position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-background: rgba(10,18,10,0.97);
-backdrop-filter: blur(20px);
+background: #101010;
 border-top: 1px solid var(–border);
 padding: 8px 0 max(8px, env(safe-area-inset-bottom));
 grid-template-columns: repeat(5, 1fr);
@@ -429,14 +431,13 @@ text-transform: uppercase; transition: color 0.2s;
 
 /* MOBILE */
 @media (max-width: 768px) {
-/* Sidebar: hidden off-screen by default on mobile */
 .sidebar {
 transform: translateX(-100%);
 box-shadow: none;
 }
 .sidebar.open {
 transform: translateX(0);
-box-shadow: 8px 0 40px rgba(0,0,0,0.6);
+box-shadow: 4px 0 40px rgba(0,0,0,0.8);
 }
 /* Main takes full width */
 .main { margin-left: 0; }
@@ -490,7 +491,7 @@ gap: 10px;
 }
 
 /* OVERLAY for mobile sidebar */
-.sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:99; }
+.sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:299; }
 .sidebar-overlay.open { display:block; }
 </style>
 
@@ -1213,11 +1214,15 @@ async function syncToCloud() {
 }
 
 async function loadFromCloud() {
-  if (!sb) { setSyncStatus('error', 'Add JWT key'); return; }
+  if (!sb) { setSyncStatus('error', 'No API key'); return; }
   try {
     setSyncStatus('syncing', 'Loading...');
-    const { data: rows, error } = await sb.from('lifeos_data').select('data, updated_at').eq('device_id', DEVICE_ID).single();
-    if (error && error.code !== 'PGRST116') throw error;
+    const { data: rows, error } = await sb
+      .from('lifeos_data')
+      .select('data, updated_at')
+      .eq('device_id', DEVICE_ID)
+      .maybeSingle(); // maybeSingle returns null instead of error when no row found
+    if (error) throw error;
     if (rows?.data) {
       const cloudData = JSON.parse(rows.data);
       const localUpdated = parseInt(localStorage.getItem('lifeOS_lastSave') || '0');
@@ -1230,7 +1235,7 @@ async function loadFromCloud() {
     }
     setSyncStatus('synced', 'Synced ✓');
   } catch(e) {
-    console.error('Cloud load error', e);
+    // Silently fall back to local — app works fine offline
     setSyncStatus('error', 'Offline mode');
   }
 }
